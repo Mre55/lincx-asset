@@ -1,14 +1,11 @@
-var fs = require('fs'),
-    http = require('http');
+const express = require('express');
+const app = express();
+const PORT = 8080;
 
-http.createServer(function (req, res) {
-  fs.readFile(__dirname + req.url, function (err,data) {
-    if (err) {
-      res.writeHead(404);
-      res.end(JSON.stringify(err));
-      return;
-    }
-    res.writeHead(200);
-    res.end(data);
-  });
-}).listen(8080);
+app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
+
+app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
